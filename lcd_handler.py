@@ -19,26 +19,23 @@ class LcdHandler:
 
     #should be: top, bottom, scrolltop, scrollbottom, scrolinterval
     def display_string(self, time_format, bottom_text, scroll_speed=9):
-        
-        global _CURSOR_TOP
-        global _CURSOR_BOTTOM
 
         sleep_time = 1.1-(0.1*scroll_speed)
 
         while True:
             visible_message = "                "
             self.lcd.clear()
-            self.lcd.set_cursor(_CURSOR_BOTTOM)
+            self.lcd.set_cursor(LcdHandler._CURSOR_BOTTOM)
             self.lcd.message(visible_message)
             time.sleep(sleep_time)
             for loc in range(len(bottom_text)):
                 self.lcd.clear()
-                self.lcd.set_cursor(_CURSOR_TOP)
+                self.lcd.set_cursor(LcdHandler._CURSOR_TOP)
                 self.lcd.message(self.get_time(time_format))
-                self.lcd.set_cursor(_CURSOR_BOTTOM)
+                self.lcd.set_cursor(LcdHandler._CURSOR_BOTTOM)
                 visible_message = self.scroll_string(visible_message, bottom_text, loc)
                 self.lcd.message(visible_message)
-                self.lcd.set_cursor(_CURSOR_TOP)
+                self.lcd.set_cursor(LcdHandler._CURSOR_TOP)
                 time.sleep(sleep_time)
 
     def scroll_string(self, visible_message, full_message, loc, scrollby=1):
