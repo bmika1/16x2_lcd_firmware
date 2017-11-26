@@ -10,7 +10,7 @@ class RssParser:
         reuters_string = ''
 
         for entry in reuters_topnews:
-            reuters_string = reuters_string + entry['title'] + ';  '
+            reuters_string = reuters_string + entry['title'] + ' | '
 
 
         #print reuters_string

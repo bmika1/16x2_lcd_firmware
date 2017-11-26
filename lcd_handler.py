@@ -27,19 +27,20 @@ class LcdHandler:
             visible_message = full_message[:16]
             self.lcd.clear()
             self.lcd.set_cursor(0,1)
-            message_buffer = self.load_buffer(message_buffer, 0, full_message)
-            for loc in range(15, len(full_message)):
+            self.lcd.message(visible_message)
+            time.sleep(0.2)
+            for loc in range(len(full_message)):
                 self.lcd.clear()
                 if time_on_top is True:
-                        self.display_time()
+                    self.display_time()
                 self.lcd.set_cursor(0,1)
-                visible_message = self.scroll_string(visible_message, full_message)
+                visible_message = self.scroll_string(visible_message, full_message, loc)
                 self.lcd.message(visible_message)
                 self.lcd.set_cursor(0,0)
-                time.sleep(0.4)
+                time.sleep(0.2)
 
-    def scroll_string(self, visible_message, full_message ,scrollby=1):
-        visible_message = visible_message[scrollby:]+full_message[:scrollby]
+    def scroll_string(self, visible_message, full_message, loc, scrollby=1):
+        visible_message = visible_message[scrollby:]+full_message[loc+16:scrollby+loc+16]
         return visible_message
 
     def load_buffer(self, buffer,  start, full_message):
