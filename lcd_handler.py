@@ -23,21 +23,24 @@ class LcdHandler:
 
         full_message = self.r_parser.refresh_reuters()
         while True:
-	    message_buffer = ""
-	    self.lcd.clear()
+            #message_buffer = ""
+            visible_message = full_message[:16]
+            self.lcd.clear()
             self.lcd.set_cursor(0,1)
             message_buffer = self.load_buffer(message_buffer, 0, full_message)
-            for loc in range(15, len(full_message)):    
-                if loc%8==0:
-                    self.lcd.clear()
-                    if time_on_top is True:
-                        self.display_time()        
-                    self.lcd.set_cursor(0,1)
-                    message_buffer = self.load_buffer(message_buffer, loc, full_message)
-                    self.lcd.message(message_buffer) 
-                    self.lcd.set_cursor(0,1)
-                self.lcd.move_left()
+            for loc in range(15, len(full_message)):
+                self.lcd.clear()
+                if time_on_top is True:
+                        self.display_time()
+                self.lcd.set_cursor(0,1)
+                visible_message = self.scroll_string(visible_message, full_message)
+                self.lcd.message(visible_message)
+                self.lcd.set_cursor(0,0)
                 time.sleep(0.4)
+
+    def scroll_string(self, visible_message, full_message ,scrollby=1):
+        visible_message = visible_message[scrollby:]+full_message[:scrollby]
+        return visible_message
 
     def load_buffer(self, buffer,  start, full_message):
         if len(buffer) >= 24:
