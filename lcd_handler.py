@@ -12,14 +12,14 @@ class LcdHandler:
         self.r_parser = rss_parser.RssParser()
 
     def get_time(self, time_format):
-        self.lcd.message(datetime.now().strftime(time_format))
+        return datetime.now().strftime(time_format)
 
     #should be: top, bottom, scrolltop, scrollbottom, scrolinterval
-    def display_string(self, time_format, bottom_text, scroll_speed=9):
+    def display_string(self, time_format, bottom_text, scroll_speed=9, repeats = 5):
 
         sleep_time = 1.1-(0.1*scroll_speed)
 
-        while True:
+        for x in range(repeats):
             visible_message = "                "
             self.lcd.clear()
             self.lcd.set_cursor(0, 1)

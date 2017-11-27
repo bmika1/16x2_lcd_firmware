@@ -17,3 +17,17 @@ class RssParser:
 
         return reuters_string
 
+
+    def refresh_channel(self, address):
+
+        reuters_topnews = feedparser.parse(address)['entries']
+
+        reuters_string = ''
+
+        for entry in reuters_topnews:
+            reuters_string = reuters_string + entry['title'] + ' | '
+
+
+        #print reuters_string
+
+        return reuters_string
