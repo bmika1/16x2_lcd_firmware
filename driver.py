@@ -13,7 +13,7 @@ while True:
     #time_format = '%H:%M:%S.%f'`'`
     time_format =  '%b %d  %H:%M:%S'
 
-    lcdh.display_string(time_format, rss_str, 1)
+    lcdh.display_string(time_format, rss_str, 9, 1)
 
 
 @app.route('/', methods=['POST'])
@@ -27,3 +27,6 @@ def display_template():
     return render_template('template.html')
 
 
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
+   
